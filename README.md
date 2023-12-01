@@ -1,0 +1,1 @@
+This is just a place to store solutions to Advent of Code 2023
