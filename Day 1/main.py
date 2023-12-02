@@ -63,6 +63,7 @@ words_replaced_list = [make_new_string(test_string) for test_string in input]
 
 print(f"Part Two: {find_values(words_replaced_list)}")
 
+# The list comprehensions below solve the problem in a somewhat unreadable and unpleasant way, but much less code.
 list_comp_pt_1 = sum(
     [
         int(x[0] + x[-1])
@@ -72,7 +73,7 @@ list_comp_pt_1 = sum(
 
 print(f"Part One: {list_comp_pt_1} list comprehension")
 
-# The list comprehension below solves the problem in a somewhat unreadable and unpleasant way, but much less code.
+
 list_comp_pt_2 = sum(
     [
         int(x[0] + x[-1])
