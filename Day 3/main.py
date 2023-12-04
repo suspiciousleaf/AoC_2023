@@ -1,3 +1,6 @@
+import time
+
+t0 = time.perf_counter()
 # Import data
 with open("Day 3/input.txt", "r") as infile:
     input = infile.read().splitlines()
@@ -120,3 +123,5 @@ for x, y in gear_coords_list:
         gear_total += gear_num[0] * gear_num[1]
 
 print(f"Part Two: {gear_total:>9}")
+
+print(f"Time taken: {time.perf_counter() - t0:.3f} s")
