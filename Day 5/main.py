@@ -10,6 +10,14 @@ input = input[1:]
 
 
 def find_location(seeds):
+    """Takes a list of seeds and transforms them to location, returns the final locations and the initial seed numbers
+
+    Args:
+        seeds (list): Seed numbers to be transformed
+
+    Returns:
+        (locations[list], seeds[list])
+    """
     s_s_input = input[0].replace("seed-to-soil map:\n", "").split("\n")
 
     # Indices match both lists, contain range objects, loop to check which range the seed is in.
@@ -196,17 +204,22 @@ def find_location(seeds):
     return (locations, seeds)
 
 
+# Inputs all seeds to be transformed, and finds the lowest value for location
 print(f"Part One: {min(find_location(seeds)[0])}")
 
+#############################################################################
+
+# The above is too inefficient for Part Two, single it requires many billions of seeds to be tested. Run time would be approx 6 days. Instead I initially ran every 1 in 100,000 seeds through to identify the range that holds the lowest value, then tested every 10,000 seeds in that range to identify a narrow range, and finally tested every seed +/- 10,000 in that identified range. This tool approx 25 seconds to run.
 
 seeds_two = []
 
 for i in range(0, len(seeds), 2):
-    seeds_two.append(range(seeds[i], seeds[i] + seeds[i + 1], 10000))
+    seeds_two.append(range(seeds[i], seeds[i] + seeds[i + 1], 100000))
 
 
 lowest_location = 9999999999999
 
+# Find approx value of lowest seed (1 in 100,000)
 for i, seed_range in enumerate(seeds_two):
     for single_seed in seed_range:
         loc = find_location([single_seed])
@@ -214,17 +227,19 @@ for i, seed_range in enumerate(seeds_two):
             lowest_location = loc[0][0]
             lowest_seed = loc[1][0]
 
+# Identify the range that holds that seed
 for x in seeds_two:
     if x[0] <= lowest_seed <= x[-1]:
         test_range_min, test_range_max = x[0], x[-1]
 
+# Test 1 in 10,000 seeds in that range to create a narrow range
 for single_seed_10000 in range(test_range_min, test_range_max, 10000):
     loc = find_location([single_seed_10000])
     if loc[0][0] < lowest_location:
         lowest_location = loc[0][0]
         lowest_seed = loc[1][0]
 
-
+# Test every seed +/- 10,000 in that narrow range to find exact value
 for single_seed in range(lowest_seed - 10000, lowest_seed + 10000):
     loc = find_location([single_seed])
     if loc[0][0] < lowest_location:
