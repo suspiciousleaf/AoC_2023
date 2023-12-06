@@ -48,4 +48,4 @@ print(
     f"Part Two: {total_copies:>9,} time taken: {((time.perf_counter_ns()-t1)/1000000):,.3f} ms"
 )
 
-# Typical run time, pt1: 2.400 ms, pt2: 0.600 ms
+# Typical run time on my 7 year old laptop, pt1: 2.400 ms, pt2: 0.600 ms
