@@ -1,5 +1,4 @@
-from models import Card, score_dict
-from pprint import pprint
+from models import Card
 
 with open("Day 7/input.txt", "r") as infile:
     input = [line.split() for line in infile.read().splitlines()]
